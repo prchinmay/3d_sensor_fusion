@@ -5,7 +5,7 @@
 This contains solution for course (RO47004) project of TU Delft masters robotics program. It relates to processing data 
 coming from LIDAR and camera sensors placed on a moving vehicle and visualize them on a common reference frame. 
 
-![banner](pics/stereo1.PNG)
+![gif](pics/record.gif)
 
 ## Context
 
@@ -33,8 +33,14 @@ the data is processed and visualized in a common reference frame.
 
 ![frame](pics/frame.PNG)
 ![lidar1](pics/lidar1.PNG)
-![compensated](pics/compensated.png)
-![gif](pics/record.gif)
-![calib](pics/calib.PNG)
 ![lidar2](pics/lidar2.png)
+![calib](pics/calib.PNG)
+![compensated](pics/compensated.png)
+![stereo1](stereo1.PNG)
+![stereo2](stereo2.PNG)
+![gif](pics/record.gif)
+
+![gif](pics/record.gif)
+
+
 ![lidar_angles](pics/lidar_angles.PNG)
