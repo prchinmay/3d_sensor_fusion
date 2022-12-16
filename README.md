@@ -72,7 +72,7 @@ $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 $c_x, c_y$ ([pixels]) and the baseline b ([m]).
 
 <p align="center">
-  <img width="200" height="100" src="pics/calib.PNG">
+  <img width="200" height="200" src="pics/calib.PNG">
 </p>
 
 * Using above equation, given the camera parameters for the original image and the disparity image, the 3D position for all 
@@ -82,7 +82,7 @@ valid pixels are computed. Pixels that have an infeasible 3D position due to the
 stereo camera, is assigned a pixel value. Once this is done, the stereo cloud looks like the image below in two different 
 views(front, top). 
   
-<img src="pics/stereo1.PNG" width="400"/> <img src="pics/stereo2.PNG" width="400"/> 
+<img src="pics/stereo1.PNG" width="450"/> <img src="pics/stereo2.PNG" width="450"/> 
 
 ### 4. 3D point cloud sensor alignment
 * Currently, the points of both sensors are given in different reference frames, i.e. each in their own in sensor 
@@ -93,9 +93,43 @@ compensated as the data of both sensors was captured at different times.
 
 ![lidar2](pics/lidar2.png)
 
+### 5. Occupancy grid
 
+* Next,  a simple 2D occupancy grid map to accumulate the measurements over time is implemented. 
+Consider a square 2D grid parallel to the x-y plane that discretizes  space into equally sized cells, like a checkerboard. 
+The ego-vehicle is located in the center cell of the grid. Given a 3D point cloud of obstacle points measured by one of the
+sensors, the grid denotes all cells that contain a 3D point as "occupied". All other cells remain "free" or "unobserved".
 
+* The occupancy grid map should only include obstacles, thus the ground points need to be removed before incorporating 
+the point cloud data into the grid map. For this purpose,a function is implemented that fits a 3D plane to the point cloud
+data. It returns the fitted plane represented by three points which are on that plane. Then, all ground points are removed 
+from the  point cloud while cinsidering up to 30 cm above the ground plane as ground, to account for noise and errors in the fit.
+
+* Assuming coordinate frame of the grid and the coordinate frame of the vehicle are the same, a function is implement to that 
+marks cells as "occupied".
+
+* Below, a top-down view of a simple 2D occupancy grid. Black denotes that a cell is occupied. The blue point cloud is
+the latest data input from the LiDAR. The thin green and blue arrows indicate the y and z axes, the x axes coincides 
+with the first ego-pose and thus is hidden.
+
+<p align="center">
+  <img width="600" height="400" src="pics/occ.PNG">
+</p>
+
+* The vehicle starts moving now and this movement needs to be accounted for when data is
+accumulated over time. The cells of the occupancy grid however are associated to a certain
+physical region! The current “view” of the occupancy grid only considers the cells within the
+limits that were chosen due to memory limitations. The only movement that can be imposed
+on the current “view” is by considering a different set of cells, i.e. moving in steps of cells.
+For this reason, let’s distinguish the movement of the vehicle on two levels: firstly, the vehicle
+can move such that its origin still remains within the same cell and secondly, it can move to a
+different cell. The first kind of movement needs to compensated by transforming the incoming
+point cloud from the vehicle frame of reference to the frame of the grid. The second kind of
+movement is compensated by moving our current "view", meaning that we have to discard
+some cells at one side of the grid and add some new cells. Below is a recording of the occupancy grid for a moving vehicle
+after performing the above mentioned tasks.
 
 ![gif](pics/record.gif)
 
-
+## Acknowledgements
+Course assignment of Machine Perception-RO47004 of Msc Robotics program @ TUDelft.
