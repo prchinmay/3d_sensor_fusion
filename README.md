@@ -37,7 +37,7 @@ the data is processed and visualized in a common reference frame.
 
 ### 1. Ego-motion from odometry measurements
 
-* A non-linear motion model $x_t+\Delta_t = f(x_t;m_t;\Delta_t)$ of the vehicle is provided below. A function is written
+* A non-linear motion model $x_t+\Delta_t = f(x_t,m_t,\Delta_t)$ of the vehicle is provided below. A function is written
 to implement a single step from t to t + $\Delta_t$ of the motion model. 
 * This function is used to compute the relative 2D pose between the ego-vehicle’s poses at two times t_{from} and $t_{to}$. 
 This transforms 3D points measured in one frame of reference at time $t_{from}$ to a reference frame at time $t_{to}$.
@@ -51,31 +51,44 @@ This transforms 3D points measured in one frame of reference at time $t_{from}$ 
 ![compensated](pics/lidar1.PNG)
  
 Given the scan frequency f and the capture time t of the last point at end of the 360 degree scan, the time 
-$t_x$ when the point $x = (x; y; z)$ was captured is derived using:
+$t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 
 ![angle](pics/angle.PNG)![lidar_cal](pics/lidar_cal.PNG)
 
 * The three subsequent point clouds after compensating the ego-motion in a single frame of reference looks like this
 
-![lidar3](pics/lidar3.PNG)
+![lidar3](pics/lidar3.jpeg)
 
 ### 3. 3D from stereo vision
 
-* Using the equations below, 3D positions (x; y; z) are computed per pixel from the disparity image with coordinates (u; v; d), 
-given the camera information (focal length fx = fy = fxy with unit [pixels], image center cx; cy ([pixels]) and the baseline b ([m]).
+* Using the equations below, 3D positions (x, y, z) are computed per pixel from the disparity image with coordinates 
+(u, v, d), given the camera information (focal length $f_x = f_y = f_{xy}$ with unit [pixels], image center 
+$c_x, c_y$ ([pixels]) and the baseline b ([m]).
 
 ![calib](pics/calib.PNG)
 
 * Using above equation, given the camera parameters for the original image and the disparity image, the 3D position for all 
 valid pixels are computed. Pixels that have an infeasible 3D position due to the disparity value are set to np:nan.
 
-![stereo1](stereo1.PNG)
+* A left rectified camera image is provided as input. Using this, every associated point in the point cloud obtained from the 
+stereo camera, is assigned a pixel value. Once this is done, the stereo cloud looks like the image below in two different 
+views(front, top). 
+  
+<img src="pics/stereo1.PNG" width="200"/> <img src="pics/stereo2.PNG" width="200"/> 
+
+### 4. 3D point cloud sensor alignment
+* Currently, the points of both sensors are given in different reference frames, i.e. each in their own in sensor 
+coordinate frame. You are given the sensor poses with respect to the vehicle frame of reference as translation and 
+rotation. Use them to implement the function transform to car frame which should transform the points from
+both sensor coordinates to a common coordinate frame, the coordinate frame of the vehicle. Additionally, compensate 
+the ego-motion as the data of both sensors was captured at different times and if you have already implemented it, 
+also compensate the ego-motion within a single LiDAR scan.
 
 ![lidar2](pics/lidar2.png)
 
 
 
-![stereo2](stereo2.PNG)
+
 ![gif](pics/record.gif)
 
 ![gif](pics/record.gif)
