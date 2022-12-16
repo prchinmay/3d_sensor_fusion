@@ -82,7 +82,13 @@ valid pixels are computed. Pixels that have an infeasible 3D position due to the
 stereo camera, is assigned a pixel value. Once this is done, the stereo cloud looks like the image below in two different 
 views(front, top). 
   
-<img src="pics/stereo1.PNG" width="450"/> <img src="pics/stereo2.PNG" width="450"/> 
+<p align="center">
+  <img width="600" src="pics/stereo1.PNG">
+</p>
+
+<p align="center">
+  <img width="600" src="pics/stereo2.PNG">
+</p>
 
 ### 4. 3D point cloud sensor alignment
 * Currently, the points of both sensors are given in different reference frames, i.e. each in their own in sensor 
