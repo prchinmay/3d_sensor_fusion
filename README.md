@@ -53,7 +53,7 @@ This transforms 3D points measured in one frame of reference at time $t_{from}$ 
 Given the scan frequency f and the capture time t of the last point at end of the 360 degree scan, the time 
 $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 
-![angle](pics/angle.PNG)![lidar_cal](pics/lidar_cal.PNG)
+<img src="pics/angle.PNG" width="400"/> <img src="pics/lidar_cal.PNG" width="400"/>
 
 * The three subsequent point clouds after compensating the ego-motion in a single frame of reference looks like this
 
@@ -74,7 +74,7 @@ valid pixels are computed. Pixels that have an infeasible 3D position due to the
 stereo camera, is assigned a pixel value. Once this is done, the stereo cloud looks like the image below in two different 
 views(front, top). 
   
-<img src="pics/stereo1.PNG" width="200"/> <img src="pics/stereo2.PNG" width="200"/> 
+<img src="pics/stereo1.PNG" width="400"/> <img src="pics/stereo2.PNG" width="400"/> 
 
 ### 4. 3D point cloud sensor alignment
 * Currently, the points of both sensors are given in different reference frames, i.e. each in their own in sensor 
