@@ -27,11 +27,14 @@ around the vehicle.
 are given as translation and rotation in 3D.
 
 ### Task
-Below is a schematic of the incoming data over time. Since the vehicle has moved between measurements, the data
-requires to compensate for this ego-motion to properly align the sensor data. In this assignment,
-the data is processed and visualized in a common reference frame.
+Below is a schematic of the incoming data over time. Note that the frequencies do not match the actual data.
+and E, L and C denote ego-motion, LiDAR and camera data, respectively. Since the vehicle has moved between measurements, 
+the data requires to compensate for this ego-motion to properly align the sensor data. In this assignment, the goal is to
+processes the incoming data and visualized in a common reference frame.
 
 ![frame](pics/frame.PNG)
+
+Schematic of the measured data coming from the sensors over time. 
 
 ## Solution
 
