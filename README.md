@@ -43,16 +43,18 @@ to implement a single step from t to t + $\Delta_t$ of the motion model.
 This transforms 3D points measured in one frame of reference at time $t_{from}$ to a reference frame at time $t_{to}$.
 
 <p align="center">
-  <img width="400" height="300" src="pics/motion_model.PNG">
+  <img width="200" height="100" src="pics/motion_model.PNG">
 </p>
 
 ### 2. 3D from LiDAR
 * In below figure you see a point cloud from the LiDAR sensor of an ego-vehicle moving forward at about 10 m.
  The LiDAR scan starts in front of the ego-vehicle and from the bird-eye-view perspective rotates clockwise.
 
-![compensated](pics/lidar1.PNG)
+<p align="center">
+  <img width="600" height="350" src="pics/lidar1.PNG">
+</p>
  
-Given the scan frequency f and the capture time t of the last point at end of the 360 degree scan, the time 
+* Given the scan frequency f and the capture time t of the last point at end of the 360 degree scan, the time 
 $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 
 <img src="pics/angle.PNG" width="400"/> <img src="pics/lidar_cal.PNG" width="400"/>
@@ -70,7 +72,7 @@ $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 $c_x, c_y$ ([pixels]) and the baseline b ([m]).
 
 <p align="center">
-  <img width="400" height="300" src="pics/calib.PNG">
+  <img width="200" height="100" src="pics/calib.PNG">
 </p>
 
 * Using above equation, given the camera parameters for the original image and the disparity image, the 3D position for all 
@@ -84,11 +86,10 @@ views(front, top).
 
 ### 4. 3D point cloud sensor alignment
 * Currently, the points of both sensors are given in different reference frames, i.e. each in their own in sensor 
-coordinate frame. You are given the sensor poses with respect to the vehicle frame of reference as translation and 
-rotation. Use them to implement the function transform to car frame which should transform the points from
-both sensor coordinates to a common coordinate frame, the coordinate frame of the vehicle. Additionally, compensate 
-the ego-motion as the data of both sensors was captured at different times and if you have already implemented it, 
-also compensate the ego-motion within a single LiDAR scan.
+coordinate frame. Given the sensor poses with respect to the vehicle frame of reference as translation and 
+rotation, a function is implememted to transform to car frame which transforms the points from both sensor 
+coordinates to a common coordinate frame— the coordinate frame of the vehicle. Additionally, the ego-motion is
+compensated as the data of both sensors was captured at different times.
 
 ![lidar2](pics/lidar2.png)
 
@@ -97,7 +98,4 @@ also compensate the ego-motion within a single LiDAR scan.
 
 ![gif](pics/record.gif)
 
-![gif](pics/record.gif)
 
-
-![lidar_angles](pics/lidar_angles.PNG)
