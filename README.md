@@ -42,7 +42,9 @@ to implement a single step from t to t + $\Delta_t$ of the motion model.
 * This function is used to compute the relative 2D pose between the ego-vehicle’s poses at two times t_{from} and $t_{to}$. 
 This transforms 3D points measured in one frame of reference at time $t_{from}$ to a reference frame at time $t_{to}$.
 
-![motion_model](pics/motion_model.PNG)
+<p align="center">
+  <img width="400" height="300" src="pics/motion_model.PNG">
+</p>
 
 ### 2. 3D from LiDAR
 * In below figure you see a point cloud from the LiDAR sensor of an ego-vehicle moving forward at about 10 m.
@@ -57,7 +59,9 @@ $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 
 * The three subsequent point clouds after compensating the ego-motion in a single frame of reference looks like this
 
-![lidar3](pics/lidar3.jpeg)
+<p align="center">
+  <img width="600" height="400" src="pics/lidar3.jpeg">
+</p>
 
 ### 3. 3D from stereo vision
 
@@ -65,7 +69,9 @@ $t_x$ when the point $x = (x, y, z)$ was captured is derived using:
 (u, v, d), given the camera information (focal length $f_x = f_y = f_{xy}$ with unit [pixels], image center 
 $c_x, c_y$ ([pixels]) and the baseline b ([m]).
 
-![calib](pics/calib.PNG)
+<p align="center">
+  <img width="400" height="300" src="pics/calib.PNG">
+</p>
 
 * Using above equation, given the camera parameters for the original image and the disparity image, the 3D position for all 
 valid pixels are computed. Pixels that have an infeasible 3D position due to the disparity value are set to np:nan.
